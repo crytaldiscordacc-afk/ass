@@ -208,13 +208,13 @@ def truncate_text(text, max_length=1024):
 # Embed creation functions with black theme and UnixNodes branding
 def create_embed(title, description="", color=0x1a1a1a):
     embed = discord.Embed(
-        title=truncate_text(f"⭐ UnixNodes - {title}", 256),
+        title=truncate_text(f"⭐ Nebula Nodes - {title}", 256),
         description=truncate_text(description, 4096),
         color=color
     )
-    embed.set_thumbnail(url="https://i.imgur.com/xSsIERx.png")
-    embed.set_footer(text=f"UnixNodes VPS Manager • {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}",
-                     icon_url="https://i.imgur.com/xSsIERx.png")
+    embed.set_thumbnail(url="https://grubby-apricot-8bkvjcsbfb.edgeone.app/file_00000000e2f471faa4a26f74939b8e70.png")
+    embed.set_footer(text=f"Nebula Nodes VPS Manager • {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}",
+                     icon_url="https://grubby-apricot-8bkvjcsbfb.edgeone.app/file_00000000e2f471faa4a26f74939b8e70.png")
     return embed
 
 def add_field(embed, name, value, inline=False):
@@ -521,8 +521,8 @@ def get_uptime():
 @bot.event
 async def on_ready():
     logger.info(f'{bot.user} has connected to Discord!')
-    await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name="UnixNodes VPS Manager"))
-    logger.info("UnixNodes Bot is ready!")
+    await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name="Nebula Nodes VPS Manager"))
+    logger.info("Nebula Nodes Bot is ready!")
 
 @bot.event
 async def on_command_error(ctx, error):
@@ -595,8 +595,8 @@ async def my_vps(ctx):
     user_id = str(ctx.author.id)
     vps_list = vps_data.get(user_id, [])
     if not vps_list:
-        embed = create_error_embed("No VPS Found", "You don't have any UnixNodes VPS. Contact an admin to create one.")
-        add_field(embed, "Quick Actions", "• `!manage` - Manage VPS\n• Contact UnixNodes admin for VPS creation", False)
+        embed = create_error_embed("No VPS Found", "You don't have any Nebula Nodes VPS. Contact an admin to create one.")
+        add_field(embed, "Quick Actions", "• `!manage` - Manage VPS\n• Contact Nebula Nodes admin for VPS creation", False)
         await ctx.send(embed=embed)
         return
     embed = create_info_embed("My UnixNodes VPS", "")
@@ -618,7 +618,7 @@ async def my_vps(ctx):
 async def lxc_list(ctx):
     try:
         result = await execute_lxc("lxc list")
-        embed = create_info_embed("UnixNodes LXC Containers List", result)
+        embed = create_info_embed("Nebula Nodes LXC Containers List", result)
         await ctx.send(embed=embed)
     except Exception as e:
         await ctx.send(embed=create_error_embed("Error", str(e)))
@@ -684,7 +684,7 @@ class OSSelectView(discord.ui.View):
                         await self.user.add_roles(vps_role, reason="UnixNodes VPS ownership granted")
                     except discord.Forbidden:
                         logger.warning(f"Failed to assign UnixNodes VPS role to {self.user.name}")
-            success_embed = create_success_embed("UnixNodes VPS Created Successfully")
+            success_embed = create_success_embed("Nebula Nodes VPS Created Successfully")
             add_field(success_embed, "Owner", self.user.mention, True)
             add_field(success_embed, "VPS ID", f"#{vps_count}", True)
             add_field(success_embed, "Container", f"`{container_name}`", True)
@@ -2101,7 +2101,7 @@ async def show_help(ctx):
     user_id = str(ctx.author.id)
     is_user_admin = user_id == str(MAIN_ADMIN_ID) or user_id in admin_data.get("admins", [])
     is_user_main_admin = user_id == str(MAIN_ADMIN_ID)
-    embed = create_embed("📚 UnixNodes Command Help - User Commands", "UnixNodes VPS Manager Commands:", 0x1a1a1a)
+    embed = create_embed("📚 Nebula Nodes Command Help - User Commands", "UnixNodes VPS Manager Commands:", 0x1a1a1a)
     user_commands = [
         ("!ping", "Check UnixNodes bot latency"),
         ("!uptime", "Show host uptime"),
@@ -2115,7 +2115,7 @@ async def show_help(ctx):
     add_field(embed, "👤 User Commands", user_commands_text, False)
     await ctx.send(embed=embed)
     if is_user_admin:
-        embed = create_embed("📚 UnixNodes Command Help - Admin Commands", "UnixNodes VPS Manager Commands:", 0x1a1a1a)
+        embed = create_embed("📚 Nebula Nodes Command Help - Admin Commands", "UnixNodes VPS Manager Commands:", 0x1a1a1a)
         admin_commands = [
             ("!lxc-list", "List all LXC containers"),
             ("!create <ram_gb> <cpu_cores> <disk_gb> @user", "Create VPS with OS selection"),
@@ -2154,7 +2154,7 @@ async def show_help(ctx):
         add_field(embed, "🛡️ Admin Commands", admin_commands_text, False)
         await ctx.send(embed=embed)
     if is_user_main_admin:
-        embed = create_embed("📚 UnixNodes Command Help - Main Admin Commands", "UnixNodes VPS Manager Commands:", 0x1a1a1a)
+        embed = create_embed("📚 Nebula Nodes Command Help - Main Admin Commands", "UnixNodes VPS Manager Commands:", 0x1a1a1a)
         main_admin_commands = [
             ("!admin-add @user", "Add admin"),
             ("!admin-remove @user", "Remove admin"),
@@ -2162,7 +2162,7 @@ async def show_help(ctx):
         ]
         main_admin_commands_text = "\n".join([f"**{cmd}** - {desc}" for cmd, desc in main_admin_commands])
         add_field(embed, "👑 Main Admin Commands", main_admin_commands_text, False)
-        embed.set_footer(text="UnixNodes VPS Manager • Auto-suspend high-usage only • Whitelist support • Multi-OS • Enhanced monitoring • Docker-ready VPS • Snapshots")
+        embed.set_footer(text="Nebul VPS Manager • Auto-suspend high-usage only • Whitelist support • Multi-OS • Enhanced monitoring • Docker-ready VPS • Snapshots")
         await ctx.send(embed=embed)
 
 # Command aliases for typos
